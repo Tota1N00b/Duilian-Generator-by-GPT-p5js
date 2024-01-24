@@ -34,7 +34,7 @@ async function callOpenAIAPI(userKeywords) {
         );
 
         let responseData = await response.json();
-        console.log(responseData);
+        // console.log(responseData);
         return responseData.choices[0].message.content;
     } catch (error) {
         console.error("Error:", error);
@@ -51,6 +51,11 @@ async function handleUserInput(userKeywords) {
     let explanation = "";
     for (let i = 2; i < lines.length; i++) {
         explanation += lines[i];
+    }
+
+    if (firstLine.length != 7 || secondLine.length != 7) {
+        generateDuilian();
+        return;
     }
 
     duilian = {

@@ -21,11 +21,13 @@ function setup() {
     inputField.attribute("placeholder", "Keywords");
     apiKeyInput.attribute("placeholder", "API key");
 
-    submitButton.mousePressed(() => {
-        let userKeywords = inputField.value();
-        apiKey = apiKeyInput.value();
-        handleUserInput(userKeywords);
-    });
+    submitButton.mousePressed(generateDuilian);
+}
+
+function generateDuilian() {
+    let userKeywords = inputField.value();
+    apiKey = apiKeyInput.value();
+    handleUserInput(userKeywords);
 }
 
 function draw() {
@@ -75,6 +77,7 @@ function showExplaination(duilian) {
     rectMode(CENTER);
     textAlign(CENTER);
     textSize(explainationSize);
+    textFont("Helvetica");
     text(
         duilian.Explanation,
         width / 2,
