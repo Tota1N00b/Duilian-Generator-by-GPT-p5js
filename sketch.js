@@ -51,23 +51,18 @@ function drawDuilian(duilian) {
         charSize,
         charSize / 2,
         charSize * 1.5,
-        duilian.FirstLine.length * charSize * 1.25
+        duilian.SecondLine.length * charSize * 1.25
     );
     rect(
         width - charSize * 3,
         charSize / 2,
         charSize * 1.5,
-        duilian.SecondLine.length * charSize * 1.25
+        duilian.FirstLine.length * charSize * 1.25
     );
     fill(0);
     rectMode(CENTER);
-    text(duilian.FirstLine, charSize * 2, charSize / 2, charSize * 1.5);
-    text(
-        duilian.SecondLine,
-        width - charSize * 2,
-        charSize / 2,
-        charSize * 1.5
-    );
+    text(duilian.SecondLine, charSize * 2, charSize / 2, charSize * 1.5);
+    text(duilian.FirstLine, width - charSize * 2, charSize / 2, charSize * 1.5);
     pop();
 }
 

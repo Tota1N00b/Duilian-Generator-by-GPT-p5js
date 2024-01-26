@@ -2,11 +2,12 @@ let duilianData, dataSize;
 let fonts = ["fzfangsong-gb18030"];
 let textColors = ["black", "#F7E498", "gradient"];
 let duilianColors = ["red", "#E80212", "#D7040F", "#F02A22", "#D03026"];
-let textColor, duilianColor, font;
+let textColor, duilianColor, font, horizonScroll;
 let duilian;
 let charSize;
-let inputField, submitButton, randomButton, styleButton, apiKeyInput;
+let inputField, submitButton, randomButton, styleButton, apiKeyInput, imgButton;
 let apiKey;
+let bkg, blurBkg;
 
 function preload() {
     duilianData = loadJSON("assets/chinese_new_year_duilian.json");
@@ -15,16 +16,19 @@ function preload() {
     fonts.push(loadFont("assets/yan.ttf"));
     fonts.push(loadFont("assets/MasaFont-Medium.ttf"));
     fonts.push(loadFont("assets/qiji.ttf"));
+    bkg = loadImage("assets/DefaultBkg.png");
 }
 
 function setup() {
     dataSize = Object.keys(duilianData).length;
     duilian = duilianData[int(random(dataSize))];
     createCanvas(windowWidth, windowHeight);
+    blurBkg = createGraphics(width, height);
 
     inputField = createInput();
     submitButton = createButton("Generate Duilian");
     randomButton = createButton("Shuffle");
+    imgButton = createButton("Generate Background");
     styleButton = createButton("Change Style");
     apiKeyInput = createInput("", "password");
     positionElements();
@@ -32,6 +36,7 @@ function setup() {
     submitButton.style("white-space", "nowrap");
     randomButton.style("white-space", "nowrap");
     styleButton.style("white-space", "nowrap");
+    imgButton.style("white-space", "nowrap");
     inputField.attribute("placeholder", "Keywords");
     apiKeyInput.attribute("placeholder", "API key");
 
@@ -43,6 +48,7 @@ function setup() {
     styleButton.mousePressed(() => {
         duilianSetup();
     });
+    imgButton.mousePressed(fetchImage);
     duilianSetup();
 }
 
@@ -54,16 +60,25 @@ function generateDuilian() {
 }
 
 function draw() {
-    background(255);
+    // background(255);
+    drawBkg();
     drawDuilian(duilian);
     drawFu();
     showExplaination(duilian);
+    if (width >= 1220) drawHorizonScroll();
+}
+
+function drawBkg() {
+    blurBkg.image(bkg, 0, 0, width, height);
+    blurBkg.filter(BLUR, 20);
+    image(blurBkg, 0, 0);
 }
 
 function duilianSetup() {
     textColor = textColors[int(random(0, 3))];
     duilianColor = duilianColors[int(random(0, duilianColors.length))];
     font = fonts[int(random(0, fonts.length))];
+    horizonScroll = horizonScrolls[int(random(0, horizonScrolls.length))];
 }
 
 function drawOneChar(char, x, y, size) {
@@ -111,8 +126,8 @@ function drawDuilian(duilian) {
     if (charSize * 8 > width) {
         charSize = width / 8;
     }
-    drawALine(duilian.FirstLine, charSize * 2, charSize, charSize);
-    drawALine(duilian.SecondLine, width - charSize * 2, charSize, charSize);
+    drawALine(duilian.SecondLine, charSize * 2, charSize, charSize);
+    drawALine(duilian.FirstLine, width - charSize * 2, charSize, charSize);
     pop();
 }
 
@@ -123,6 +138,7 @@ function showExplaination(duilian) {
     textAlign(CENTER);
     textSize(explainationSize);
     textFont("Helvetica");
+    fill(255);
     text(
         duilian.Explanation,
         width / 2,
@@ -140,6 +156,10 @@ function drawFu() {
     stroke(duilianColor);
     fill(duilianColor);
     rect(0, 0, charSize * 1.5);
+    noFill();
+    stroke("#F7E498");
+    strokeWeight(charSize / 30);
+    rect(0, 0, charSize * 1.4);
     pop();
 
     push();
@@ -175,6 +195,7 @@ function setGradientFill(x1, y1, x2, y2) {
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+    blurBkg.resizeCanvas(windowWidth, windowHeight);
     positionElements();
 }
 
@@ -188,12 +209,13 @@ function positionElements() {
         width / 2 - randomButton.width / 2,
         (height / 5) * 4 + 60
     );
-    styleButton.position(
-        width - styleButton.width - 4,
-        height - styleButton.height - 4
-    );
     apiKeyInput.position(
         width / 2 - apiKeyInput.width / 2,
         (height / 5) * 4 + 120
+    );
+    imgButton.position(4, height - imgButton.height - 4);
+    styleButton.position(
+        width - styleButton.width - 4,
+        height - styleButton.height - 4
     );
 }
