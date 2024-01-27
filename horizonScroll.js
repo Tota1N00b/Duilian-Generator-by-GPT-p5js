@@ -1,3 +1,4 @@
+// An array of pre-defined Duilian phrases. These phrases are used as fallback or default content for the horizontal scrolling effect.
 const horizonScrolls = [
     "龍騰虎躍",
     "龍年大吉",
@@ -73,6 +74,7 @@ const horizonScrolls = [
     "太平盛世",
 ];
 
+// This function is responsible for drawing the horizontal scroll of Duilian on the canvas. It iterates over each phrase in the horizonScrolls array and displays them in a horizontal scrolling fashion.
 function drawHorizonScroll() {
     push();
     for (let i = 0; i < horizonScroll.length; i++) {
@@ -84,5 +86,4 @@ function drawHorizonScroll() {
         );
     }
     pop();
-    // drawOneChar(char, x, y, charSize)
 }

@@ -1,3 +1,4 @@
+// Initial setup of variables for the Duilian generator.
 let duilianData, dataSize;
 let fonts = ["fzfangsong-gb18030"];
 let textColors = ["black", "#F7E498", "gradient"];
@@ -9,6 +10,7 @@ let inputField, submitButton, randomButton, styleButton, apiKeyInput, imgButton;
 let apiKey;
 let bkg, blurBkg;
 
+// Preloads necessary assets such as Duilian data, fonts, and the default background image. This ensures all assets are available before the sketch starts.
 function preload() {
     duilianData = loadJSON("assets/chinese_new_year_duilian.json");
     fonts.push(loadFont("assets/li.ttf"));
@@ -19,6 +21,7 @@ function preload() {
     bkg = loadImage("assets/DefaultBkg.png");
 }
 
+// Sets up the canvas and initializes interface elements (input fields, buttons). It also assigns functions to button events and calls duilianSetup for initial Duilian setup.
 function setup() {
     dataSize = Object.keys(duilianData).length;
     duilian = duilianData[int(random(dataSize))];
@@ -55,6 +58,7 @@ function setup() {
     duilianSetup();
 }
 
+// Triggered by the submit button. It retrieves user input, updates the API key, and calls handleUserInput to generate Duilian based on user-provided keywords.
 function generateDuilian() {
     let userKeywords = inputField.value();
     apiKey = apiKeyInput.value();
@@ -62,6 +66,7 @@ function generateDuilian() {
     handleUserInput(userKeywords);
 }
 
+// The main drawing loop for the sketch. It calls functions to draw the background, Duilian, decorative elements ('Fu' character), and Duilian explanation. drawHorizonScroll is called conditionally based on canvas width.
 function draw() {
     // background(255);
     drawBkg();
@@ -70,6 +75,8 @@ function draw() {
     showExplaination(duilian);
     if (width >= 1220) drawHorizonScroll();
 }
+
+// Functions below handle specific tasks like drawing the background (drawBkg), setting up Duilian styles (duilianSetup), drawing from individual characters (drawOneChar) to individual lines (drawALine) to Duilian (drawDuilian), drawing decorative 'Fu' (drawFu), and displaying explanations (showExplaination).
 
 function drawBkg() {
     blurBkg.image(bkg, 0, 0, width, height);
@@ -194,6 +201,7 @@ function drawFu() {
     pop();
 }
 
+// Setup gradient fill using p5.js API with native HTML5 Canvas functionality
 function setGradientFill(x1, y1, x2, y2) {
     let gradient = drawingContext.createLinearGradient(x1, y1, x2, y2);
     gradient.addColorStop(0, "gold");
@@ -201,6 +209,7 @@ function setGradientFill(x1, y1, x2, y2) {
     drawingContext.fillStyle = gradient;
 }
 
+// Adjusts canvas size and repositions elements when the window is resized, ensuring the layout remains consistent and responsive.
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
     blurBkg.resizeCanvas(windowWidth, windowHeight);
