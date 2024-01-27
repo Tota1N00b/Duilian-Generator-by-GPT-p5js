@@ -6,3 +6,63 @@ html, body {
 canvas {
   display: block;
 }
+
+.myInputStyle {
+  border: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: red; 
+  white-space: nowrap;
+  outline: none;
+  text-align: center;
+}
+
+.myInputStyle:focus {
+  background-color: black; 
+  transform: scale(1.1); 
+}
+
+.myPasswordInput {
+  border: 0px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: red;
+  outline: none;
+  white-space: nowrap;
+}
+
+.myPasswordInput:not(:placeholder-shown) {
+  background-color: transparent;
+  color: black;
+  border: 0px;
+}
+
+.myPasswordInput:focus {
+  background-color: black;
+  color: red;
+  transform: scale(1.1);
+}
+
+.myPasswordInput:-webkit-autofill {
+  -webkit-text-fill-color: red;
+}
+
+.myPasswordInput:focus {
+  background-color: black;
+  color: red;
+  transform: scale(1.1);
+}
+
+.myButtonStyle {
+  border: 0px;
+  color: rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+  outline: none;
+}
+
+.myButtonStyle:hover {
+  font-weight: bold;
+  transform: scale(1.1);
+  color: #FFBD00;
+}
+
+
+

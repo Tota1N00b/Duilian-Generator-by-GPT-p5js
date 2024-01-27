@@ -33,10 +33,13 @@ function setup() {
     apiKeyInput = createInput("", "password");
     positionElements();
 
-    submitButton.style("white-space", "nowrap");
-    randomButton.style("white-space", "nowrap");
-    styleButton.style("white-space", "nowrap");
-    imgButton.style("white-space", "nowrap");
+    submitButton.class("myButtonStyle");
+    randomButton.class("myButtonStyle");
+    styleButton.class("myButtonStyle");
+    imgButton.class("myButtonStyle");
+
+    inputField.class("myInputStyle");
+    apiKeyInput.class("myPasswordInput");
     inputField.attribute("placeholder", "Keywords");
     apiKeyInput.attribute("placeholder", "API key");
 
@@ -79,6 +82,10 @@ function duilianSetup() {
     duilianColor = duilianColors[int(random(0, duilianColors.length))];
     font = fonts[int(random(0, fonts.length))];
     horizonScroll = horizonScrolls[int(random(0, horizonScrolls.length))];
+    submitButton.style("background-color", duilianColor);
+    randomButton.style("background-color", duilianColor);
+    styleButton.style("background-color", duilianColor);
+    imgButton.style("background-color", duilianColor);
 }
 
 function drawOneChar(char, x, y, size) {
@@ -157,7 +164,8 @@ function drawFu() {
     fill(duilianColor);
     rect(0, 0, charSize * 1.5);
     noFill();
-    stroke("#F7E498");
+    if (textColor == "gradient") stroke("#FFBD00");
+    else stroke("#F7E498");
     strokeWeight(charSize / 30);
     rect(0, 0, charSize * 1.4);
     pop();
