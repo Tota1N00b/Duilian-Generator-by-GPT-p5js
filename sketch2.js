@@ -62,6 +62,7 @@ function setup() {
 function generateDuilian() {
     let userKeywords = inputField.value();
     apiKey = apiKeyInput.value();
+    decryptApiKey();
     duilianSetup();
     handleUserInput(userKeywords);
 }
