@@ -98,6 +98,7 @@ function duilianSetup() {
     textColor = textColors[int(random(0, 3))];
     duilianColor = duilianColors[int(random(0, duilianColors.length))];
     font = fonts[int(random(0, fonts.length))];
+    dragonIndex = int(random(0, dragonImg.length));
     submitButton.style("background-color", duilianColor);
     randomButton.style("background-color", duilianColor);
     styleButton.style("background-color", duilianColor);
