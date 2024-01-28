@@ -7,7 +7,6 @@ function decryptApiKey() {
         const bytes = CryptoJS.AES.decrypt(encryptedApiKey, passphrase);
         const decryptedApiKey = bytes.toString(CryptoJS.enc.Utf8);
 
-        console.log(decryptedApiKey);
         if (decryptedApiKey) {
             apiKey = decryptedApiKey;
             // Use the decrypted API key for your API calls here

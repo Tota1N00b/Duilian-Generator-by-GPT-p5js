@@ -3,7 +3,12 @@ let duilianData, dataSize;
 let fonts = ["fzfangsong-gb18030"];
 let textColors = ["black", "#F7E498", "gradient"];
 let duilianColors = ["red", "#E80212", "#D7040F", "#F02A22", "#D03026"];
-let textColor, duilianColor, font, horizonScroll;
+let dragonImg = [];
+let textColor,
+    duilianColor,
+    font,
+    horizonScroll,
+    dragonIndex = 0;
 let duilian;
 let charSize;
 let inputField, submitButton, randomButton, styleButton, apiKeyInput, imgButton;
@@ -19,12 +24,16 @@ function preload() {
     fonts.push(loadFont("assets/MasaFont-Medium.ttf"));
     fonts.push(loadFont("assets/qiji.ttf"));
     bkg = loadImage("assets/DefaultBkg.png");
+    for (let i = 1; i <= 11; i++) {
+        dragonImg.push(loadImage("assets/dragon-bytes/dragon-" + i + ".png"));
+    }
 }
 
 // Sets up the canvas and initializes interface elements (input fields, buttons). It also assigns functions to button events and calls duilianSetup for initial Duilian setup.
 function setup() {
     dataSize = Object.keys(duilianData).length;
     duilian = duilianData[int(random(dataSize))];
+    horizonScroll = horizonScrolls[int(random(0, horizonScrolls.length))];
     createCanvas(windowWidth, windowHeight);
     blurBkg = createGraphics(width, height);
 
@@ -49,6 +58,7 @@ function setup() {
     submitButton.mousePressed(generateDuilian);
     randomButton.mousePressed(() => {
         duilian = duilianData[int(random(dataSize))];
+        horizonScroll = horizonScrolls[int(random(0, horizonScrolls.length))];
         duilianSetup();
     });
     styleButton.mousePressed(() => {
@@ -56,6 +66,7 @@ function setup() {
     });
     imgButton.mousePressed(fetchImage);
     duilianSetup();
+    imgButton.hide();
 }
 
 // Triggered by the submit button. It retrieves user input, updates the API key, and calls handleUserInput to generate Duilian based on user-provided keywords.
@@ -67,7 +78,7 @@ function generateDuilian() {
     handleUserInput(userKeywords);
 }
 
-// The main drawing loop for the sketch. It calls functions to draw the background, Duilian, decorative elements ('Fu' character), and Duilian explanation. drawHorizonScroll is called conditionally based on canvas width.
+// The main drawing loop for the sketch. It calls functions to draw the background, Duilian, decorative elements ('Fu' character with dragon image), and Duilian explanation. drawHorizonScroll is called conditionally based on canvas width.
 function draw() {
     // background(255);
     drawBkg();
@@ -89,7 +100,7 @@ function duilianSetup() {
     textColor = textColors[int(random(0, 3))];
     duilianColor = duilianColors[int(random(0, duilianColors.length))];
     font = fonts[int(random(0, fonts.length))];
-    horizonScroll = horizonScrolls[int(random(0, horizonScrolls.length))];
+    dragonIndex = int(random(0, dragonImg.length));
     submitButton.style("background-color", duilianColor);
     randomButton.style("background-color", duilianColor);
     styleButton.style("background-color", duilianColor);
@@ -170,12 +181,14 @@ function drawFu() {
     rotate(PI / 4);
     stroke(duilianColor);
     fill(duilianColor);
-    rect(0, 0, charSize * 1.5);
+    rect(0, 0, charSize * 2);
     noFill();
-    if (textColor == "gradient") stroke("#FFBD00");
-    else stroke("#F7E498");
-    strokeWeight(charSize / 30);
-    rect(0, 0, charSize * 1.4);
+    // if (textColor == "gradient") stroke("#FFBD00");
+    // else stroke("#F7E498");
+    // strokeWeight(charSize / 30);
+    // rect(0, 0, charSize * 1.9);
+    imageMode(CENTER);
+    image(dragonImg[dragonIndex], 0, 0, charSize * 2.1, charSize * 2.1);
     pop();
 
     push();
