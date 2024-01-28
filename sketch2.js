@@ -53,7 +53,7 @@ function setup() {
     inputField.class("myInputStyle");
     apiKeyInput.class("myPasswordInput");
     inputField.attribute("placeholder", "Keywords");
-    apiKeyInput.attribute("placeholder", "API key");
+    apiKeyInput.attribute("placeholder", "Password");
 
     submitButton.mousePressed(generateDuilian);
     randomButton.mousePressed(() => {
