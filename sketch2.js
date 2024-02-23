@@ -71,8 +71,10 @@ function setup() {
 
 // Triggered by the submit button. It retrieves user input, updates the API key, and calls handleUserInput to generate Duilian based on user-provided keywords.
 function generateDuilian() {
+    apiKeyInput.hide();
     let userKeywords = inputField.value();
     apiKey = apiKeyInput.value();
+    horizonScroll = horizonScrolls[int(random(0, horizonScrolls.length))];
     duilianSetup();
     handleUserInput(userKeywords);
 }
@@ -159,11 +161,11 @@ function drawDuilian(duilian) {
 
 function showExplaination(duilian) {
     push();
-    let explainationSize = charSize / 10;
+    let explainationSize = charSize / 5;
     rectMode(CENTER);
     textAlign(CENTER);
     textSize(explainationSize);
-    textFont("Helvetica");
+    textFont("serif");
     fill(255);
     text(
         duilian.Explanation,
