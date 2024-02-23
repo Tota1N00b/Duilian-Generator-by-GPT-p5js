@@ -58,6 +58,8 @@ async function handleUserInput(userKeywords) {
         SecondLine: secondLine,
         Explanation: explanation,
     };
+
+    horizonScroll = horizonScrolls[int(random(0, horizonScrolls.length))];
 }
 
 function keepCharacters(line) {

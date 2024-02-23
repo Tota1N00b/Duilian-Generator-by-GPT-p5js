@@ -8,6 +8,7 @@ let textColor,
     duilianColor,
     font,
     horizonScroll,
+    rotateFu = false,
     dragonIndex = 0;
 let duilian;
 let charSize;
@@ -90,7 +91,7 @@ function draw() {
 
 function drawBkg() {
     blurBkg.image(bkg, 0, 0, width, height);
-    blurBkg.filter(BLUR, 20);
+    blurBkg.filter(BLUR, 10);
     image(blurBkg, 0, 0);
 }
 
@@ -99,6 +100,7 @@ function duilianSetup() {
     duilianColor = duilianColors[int(random(0, duilianColors.length))];
     font = fonts[int(random(0, fonts.length))];
     dragonIndex = int(random(0, dragonImg.length));
+    rotateFu = random([true, false]);
     submitButton.style("background-color", duilianColor);
     randomButton.style("background-color", duilianColor);
     styleButton.style("background-color", duilianColor);
@@ -197,6 +199,10 @@ function drawFu() {
     textFont(font);
     textSize(charSize);
     textAlign(CENTER, CENTER);
+    if (rotateFu) {
+        rotate(PI);
+        translate(0, -charSize / 3);
+    }
     if (textColor != "gradient") {
         fill(textColor);
         text("福", 0, 0);
